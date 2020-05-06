@@ -2,3 +2,4 @@
 basnet.pth
 *.pyc
 *.png
+.idea/
