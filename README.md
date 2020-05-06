@@ -51,7 +51,7 @@ and wait for save box (~seconds depending on image size)
 Input
 ![alt text](sample/magus.jpg)
 Output
-![alt text](sample/output.png)
+![alt text](sample/magus_detour.png)
 
 ## Swagger
 You can find the API Swagger on host:port/docs 
