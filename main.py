@@ -57,7 +57,7 @@ async def get_detour(file: UploadFile = File(...)):
 @app.post("/get-mask")
 async def get_detour(file: UploadFile = File(...)):
     try:
-        os.remove("output.png")
+        os.remove("mask.png")
     except:
         pass
     img = Image.open(file.file)  # img is from PIL.Image.open(path)

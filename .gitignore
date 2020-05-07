@@ -2,4 +2,5 @@
 basnet.pth
 *.pyc
 output.png
+mask.png
 .idea/
