@@ -54,6 +54,23 @@ async def get_detour(file: UploadFile = File(...)):
     response = FileResponse("output.png", headers=headers)
     return response
 
+@app.post("/get-mask")
+async def get_detour(file: UploadFile = File(...)):
+    try:
+        os.remove("output.png")
+    except:
+        pass
+    img = Image.open(file.file)  # img is from PIL.Image.open(path)
+    img = img.convert('RGB')
+    mask = infer(np.asarray(img), net)
+    mask.convert("L").save("mask.png")
+    headers = {
+        "Content-Type": 'image',
+        "Content-Disposition": 'attachment; filename="{}"'.format("mask.png")
+    }
+    response = FileResponse("mask.png", headers=headers)
+    return response
+
 
 @app.get("/detour")
 async def get_detour_file():  # add multiple if needed #style="display: none;"
@@ -62,6 +79,21 @@ async def get_detour_file():  # add multiple if needed #style="display: none;"
        <body>
        </form>
            <form action="/get-detour/" enctype="multipart/form-data" method="post">
+           <input type="file" name="file"></label>
+           <input type="submit" value="Go">
+       </form>
+       </body>
+       </html>
+   """
+    return HTMLResponse(content=content)
+
+@app.get("/mask")
+async def get_mask_file():  # add multiple if needed #style="display: none;"
+    content = """
+       <html>
+       <body>
+       </form>
+           <form action="/get-mask/" enctype="multipart/form-data" method="post">
            <input type="file" name="file"></label>
            <input type="submit" value="Go">
        </form>
