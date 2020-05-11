@@ -19,7 +19,6 @@ def normPRED(d):
     return dn
 
 
-
 def normPRED(d):
     ma = torch.max(d)
     mi = torch.min(d)
@@ -60,8 +59,8 @@ def infer(img, net):
     else:
         inputs_test = Variable(inputs_test)
 
-    d1, _, _, _, _, _, _, _ = net(inputs_test)
-
+    tuple_res = net(inputs_test)
+    d1 = tuple_res[0]
     # Normalization.
     pred = d1[:, 0, :, :]
     predict = normPRED(pred)
@@ -71,7 +70,5 @@ def infer(img, net):
     predict_np = predict.cpu().data.numpy()
     im = Image.fromarray(predict_np * 255).convert('RGB')
     imo = im.resize((img.shape[1], img.shape[0]), resample=Image.BILINEAR)
-
-
 
     return imo

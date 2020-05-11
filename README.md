@@ -31,10 +31,18 @@ The configuration file that will be used is based on ENVIRONMENT variable:
     - *Default*: development
     
 ## Download pretrained model
-Download basnet.pth model here & put it in project root :
+Download BASNet model here & put basnet.pth in project root:
+
 <https://drive.google.com/uc?id=1s52ek_4YTDRt_EOkx1FS53u-vJa0c4nu&export=download>
 
-    
+Download U2-Net here & put it in project root :
+
+Large:
+<https://drive.google.com/uc?id=1ao1ovG1Qtx4b7EoskHXmi2E9rp5CHLcZ&export=download>
+
+## Choose model in configuration file:
+`model_path: u2net.pth` or `model_path: basnet.pth`
+
 ## Run code
 Run:
 ```bash

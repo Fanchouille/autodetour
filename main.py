@@ -6,7 +6,7 @@ import torch
 import numpy as np
 
 from sod.utils import parse_config
-from sod.model import BASNet, infer
+from sod.model import BASNet, infer, U2NET, U2NETP
 
 from starlette.responses import HTMLResponse
 from starlette.responses import FileResponse
@@ -23,8 +23,14 @@ conf = parse_config(path="./config/{}.yml".format(environment))
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
-net = BASNet(3, 1)
-net.load_state_dict(torch.load(conf["model_path"]))
+if "basnet" in conf["model_path"]:
+    net = BASNet(3, 1)
+elif "u2net" in conf["model_path"]:
+    net = U2NET(3, 1)
+elif "u2netp" in conf["model_path"]:
+    net = U2NETP(3, 1)
+
+net.load_state_dict(torch.load(conf["model_path"], map_location=torch.device('cpu')))
 if torch.cuda.is_available():
     net.cuda()
 net.eval()
@@ -53,6 +59,7 @@ async def get_detour(file: UploadFile = File(...)):
     }
     response = FileResponse("output.png", headers=headers)
     return response
+
 
 @app.post("/get-mask")
 async def get_detour(file: UploadFile = File(...)):
@@ -86,6 +93,7 @@ async def get_detour_file():  # add multiple if needed #style="display: none;"
        </html>
    """
     return HTMLResponse(content=content)
+
 
 @app.get("/mask")
 async def get_mask_file():  # add multiple if needed #style="display: none;"

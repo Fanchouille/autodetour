@@ -1,5 +1,5 @@
 .conda/
-basnet.pth
+*.pth
 *.pyc
 output.png
 mask.png
