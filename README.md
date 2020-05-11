@@ -58,8 +58,10 @@ and wait for save box (~seconds depending on image size)
 ## Results
 Input
 ![alt text](sample/magus.jpg)
-Output
-![alt text](sample/magus_detour.png)
+Output basnet
+![alt text](sample/magus_detour_basnet.png)
+Output u2net
+![alt text](sample/magus_detour_u2net.png)
 
 ## Swagger
 You can find the API Swagger on host:port/docs 
